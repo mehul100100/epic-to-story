@@ -1,19 +1,31 @@
 from langchain_openai import ChatOpenAI
+from langchain_ollama.llms import OllamaLLM
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.prompts import PromptTemplate
 from typing import Dict, List
 from app.models.schemas import StoryTitlesResponse, StoryDetail, StoryVerification
 from app.core.config import settings
 
+def get_llm():
+    if settings.MODEL_PROVIDER == "openai":
+        return ChatOpenAI(
+            model=settings.MODEL_NAME,
+            temperature=0.2,
+            api_key=settings.OPENAI_API_KEY,
+            timeout=30,
+            max_retries=1
+        )
+    elif settings.MODEL_PROVIDER == "ollama":
+        return OllamaLLM(
+            model=settings.MODEL_NAME,
+            temperature=0.2,
+        )
+    else:
+        raise ValueError(f"Unsupported model provider: {settings.MODEL_PROVIDER}")
+
 async def generate_titles(state: Dict):
     epic = state["epic"]
-    model = ChatOpenAI(
-        model=settings.MODEL_NAME,
-        temperature=0.2,
-        api_key=settings.OPENAI_API_KEY,
-        timeout=30,
-        max_retries=1
-    )
+    model = get_llm()
 
     parser = JsonOutputParser(pydantic_object=StoryTitlesResponse)
 
@@ -35,14 +47,7 @@ async def generate_titles(state: Dict):
 async def generate_details(state: Dict):
     titles = state["story_titles"]
     stories = []
-
-    model = ChatOpenAI(
-        model=settings.MODEL_NAME,
-        temperature=0.2,
-        api_key=settings.OPENAI_API_KEY,
-        timeout=30,
-        max_retries=1
-    )
+    model = get_llm()
 
     for title in titles:
         parser = JsonOutputParser(pydantic_object=StoryDetail)
@@ -75,13 +80,7 @@ async def verify_stories(state: Dict):
     stories = state["stories"]
     verified_stories = []
 
-    model = ChatOpenAI(
-        model=settings.MODEL_NAME,
-        temperature=0.1,
-        api_key=settings.OPENAI_API_KEY,
-        timeout=30,
-        max_retries=1
-    )
+    model = get_llm()
 
     for story in stories:
         parser = JsonOutputParser(pydantic_object=StoryVerification)

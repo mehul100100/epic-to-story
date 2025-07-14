@@ -6,10 +6,7 @@ import uvicorn
 app = FastAPI(
     title="Epic to Story Generator",
     description="A LangGraph-based FastAPI service to convert epics into detailed user stories.",
-    version="1.0.0",
-    openapi_url="/api/v1/openapi.json",
-    docs_url="/api/v1/docs",
-    redoc_url="/api/v1/redoc"
+    version="1.0.0"
 )
 
 app.include_router(v1_router)

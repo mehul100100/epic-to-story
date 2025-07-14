@@ -44,15 +44,15 @@ http://127.0.0.1:8000
 ```
 
 ### Interactive API Documentation
-- **Swagger UI:** [http://127.0.0.1:8000/api/v1/docs](http://127.0.0.1:8000/api/v1/docs)
-- **ReDoc:** [http://127.0.0.1:8000/api/v1/redoc](http://127.0.0.1:8000/api/v1/redoc)
+- **Swagger UI:** [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+- **ReDoc:** [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
 
 You can use these interfaces to explore and test the API endpoints interactively.
 
 ### Example Request
 
 #### Generate Stories from an Epic
-- **Endpoint:** `POST /api/v1/stories/`
+- **Endpoint:** `POST /stories/`
 - **Request Body:**
 ```json
 {
@@ -74,8 +74,9 @@ You can use these interfaces to explore and test the API endpoints interactively
 ```
 
 ## Environment Variables
-- `OPENAI_API_KEY`: Your OpenAI API key (required)
-- `MODEL_NAME`: The model to use (e.g., `gpt-4o`, `gpt-4o-mini`, etc.)
+- `OPENAI_API_KEY`: Your OpenAI API key (required if using OpenAI as the model provider)
+- `MODEL_NAME`: The model to use (e.g., `gpt-4o`, `gpt-4o-mini`, `llama3.2:1b`, etc.)
+- `MODEL_PROVIDER`: The model provider to use (`openai` or `ollama`)
 
 ## Troubleshooting
 - If you get a 500 Internal Server Error, check the server logs for details.

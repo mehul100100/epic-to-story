@@ -4,7 +4,7 @@ from typing import Optional
 
 class Settings(BaseSettings):
     OPENAI_API_KEY: Optional[str] = os.getenv("OPENAI_API_KEY")
-    MODEL_NAME: str = "gpt-4o-mini"
+    MODEL_NAME: str = os.getenv("MODEL_NAME")
     VERIFY_STORIES: bool = True
 
     class Config:

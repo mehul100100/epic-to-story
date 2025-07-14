@@ -89,7 +89,6 @@ instance/
 
 # Local env files
 .env
-.env.*
 
 # System files
 Thumbs.db

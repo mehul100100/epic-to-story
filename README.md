@@ -29,6 +29,7 @@ Create a `.env` file in the project root with your OpenAI API key:
 ```env
 OPENAI_API_KEY=sk-...
 MODEL_NAME=gpt-4o  # or your preferred model
+MODEL_PROVIDER=openai #or ollama
 ```
 
 ### 4. Start the server
